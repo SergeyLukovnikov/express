@@ -14,7 +14,7 @@ pipeline {
         stage("clone repositories") {
             steps {
                 echo " ============== start building image =================="
-                sh 'ls'
+                sh 'docker build .'
             }
         }
     }
