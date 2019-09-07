@@ -15,13 +15,6 @@ pipeline {
             steps {
                 echo " ============== start building image =================="
                 sh 'git clone https://github.com/liveloper/express.git'
-                sh 'cd express'
-            }
-        }
-        stage("create docker image") {
-            steps {
-                echo " ============== start building image =================="
-                sh 'docker build -t express . '
             }
         }
     }
