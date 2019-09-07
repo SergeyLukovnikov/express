@@ -14,7 +14,7 @@ pipeline {
         stage("clone repositories") {
             steps {
                 echo " ============== start building image =================="
-                sh 'git clone https://github.com/liveloper/express.git'
+                sh 'ls'
             }
         }
     }
