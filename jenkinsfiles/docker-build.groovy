@@ -14,7 +14,9 @@ pipeline {
         stage("clone repositories") {
             steps {
                 echo " ============== start building image =================="
-                sh 'docker build .'
+                dir('docker/toolbox') {
+                    sh 'docker build .'
+                }
             }
         }
     }
