@@ -18,5 +18,17 @@ pipeline {
                 sh 'docker build -t express:latest . '
             }
         }
+        stage("stop containers") {
+            steps {
+                echo " ============== stop containers =================="
+                sh 'docker stop $(docker ps -a -q)'
+            }
+        }
+        stage("run image") {
+            steps {
+                echo " ============== run image =================="
+                sh 'docker run -d -p 3000:3000 express:latest'
+            }
+        }
     }
 }
