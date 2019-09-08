@@ -12,22 +12,22 @@ pipeline {
         timestamps()
     }
     stages {
-        stage("create docker image") {
+        stage("clone repositories") {
             steps {
-                echo " ============== start building image =================="
-                sh 'docker build -t express:latest . '
+                echo " ============== clone repositories =================="
+                sh 'git clone https://github.com/liveloper/express.git'
             }
         }
-        stage("stop containers") {
+        stage("install dependencies") {
             steps {
-                echo " ============== stop containers =================="
-                sh 'docker stop $(docker ps -a -q)'
+                echo " ============== install dependencies =================="
+                sh 'cd express && yarn'
             }
         }
-        stage("run image") {
+        stage("run app") {
             steps {
-                echo " ============== run image =================="
-                sh 'docker run -d -p 3000:3000 express:latest'
+                echo " ============== run app =================="
+                sh 'npm run serve'
             }
         }
     }
