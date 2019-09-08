@@ -12,12 +12,6 @@ pipeline {
         timestamps()
     }
     stages {
-        stage("create docker image") {
-            steps {
-                echo " ============== start building image =================="
-                sh 'docker build -t express:latest . '
-            }
-        }
         stage("stop containers") {
             steps {
                 echo " ============== stop containers =================="
