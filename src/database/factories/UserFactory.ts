@@ -1,8 +1,8 @@
 import * as Faker from 'faker';
-import { define } from 'typeorm-seeding';
+import {define} from 'typeorm-seeding';
 import * as uuid from 'uuid';
 
-import { User } from '../../../src/api/models/User';
+import {User} from '../../../src/api/models/User';
 
 define(User, (faker: typeof Faker, settings: { role: string }) => {
     const gender = faker.random.number(1);

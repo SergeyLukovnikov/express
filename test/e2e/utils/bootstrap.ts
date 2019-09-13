@@ -1,14 +1,14 @@
-import { Application } from 'express';
+import {Application} from 'express';
 import * as http from 'http';
-import { bootstrapMicroframework } from 'microframework-w3tec';
-import { Connection } from 'typeorm/connection/Connection';
+import {bootstrapMicroframework} from 'microframework-w3tec';
+import {Connection} from 'typeorm/connection/Connection';
 
-import { eventDispatchLoader } from '../../../src/loaders/eventDispatchLoader';
-import { expressLoader } from '../../../src/loaders/expressLoader';
-import { homeLoader } from '../../../src/loaders/homeLoader';
-import { iocLoader } from '../../../src/loaders/iocLoader';
-import { winstonLoader } from '../../../src/loaders/winstonLoader';
-import { typeormLoader } from '../utils/typeormLoader';
+import {eventDispatchLoader} from '../../../src/loaders/eventDispatchLoader';
+import {expressLoader} from '../../../src/loaders/expressLoader';
+import {homeLoader} from '../../../src/loaders/homeLoader';
+import {iocLoader} from '../../../src/loaders/iocLoader';
+import {winstonLoader} from '../../../src/loaders/winstonLoader';
+import {typeormLoader} from '../utils/typeormLoader';
 
 export interface BootstrapSettings {
     app: Application;

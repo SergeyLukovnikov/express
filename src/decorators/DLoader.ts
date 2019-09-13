@@ -1,6 +1,6 @@
-import { Container, ObjectType } from 'typedi';
+import {Container, ObjectType} from 'typedi';
 
-import { createDataLoader, CreateDataLoaderOptions } from '../lib/graphql';
+import {createDataLoader, CreateDataLoaderOptions} from '../lib/data-loader';
 
 export function DLoader<T>(obj: ObjectType<T>, options: CreateDataLoaderOptions = {}): ParameterDecorator {
     return (object, propertyKey, index) => {
@@ -10,4 +10,4 @@ export function DLoader<T>(obj: ObjectType<T>, options: CreateDataLoaderOptions 
     };
 }
 
-export * from '../lib/graphql';
+export * from '../lib/data-loader';

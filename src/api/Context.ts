@@ -1,5 +1,5 @@
 import express from 'express';
-import { ContainerInstance } from 'typedi';
+import {ContainerInstance} from 'typedi';
 
 export interface Context {
   requestId: number;

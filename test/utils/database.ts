@@ -1,7 +1,7 @@
-import { Container } from 'typedi';
-import { Connection, createConnection, useContainer } from 'typeorm';
+import {Container} from 'typedi';
+import {Connection, createConnection, useContainer} from 'typeorm';
 
-import { env } from '../../src/env';
+import {env} from '../../src/env';
 
 declare type LoggerOptions = boolean | 'all' | Array<('query' | 'schema' | 'error' | 'warn' | 'info' | 'log' | 'migration')>;
 

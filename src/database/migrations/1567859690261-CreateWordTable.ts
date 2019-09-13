@@ -8,13 +8,13 @@ export class CreateWordTable1567859690261 implements MigrationInterface {
             columns: [
                 {
                     name: 'id',
-                    type: 'varchar',
-                    length: '255',
+                    type: 'integer',
                     isPrimary: true,
-                    isNullable: false,
+                    isGenerated: true,
+                    generationStrategy: 'increment',
                 },
                 {
-                    name: 'name',
+                    name: 'word',
                     type: 'varchar',
                     length: '255',
                     isPrimary: false,
@@ -26,13 +26,6 @@ export class CreateWordTable1567859690261 implements MigrationInterface {
                     length: '255',
                     isPrimary: false,
                     isNullable: false,
-                },
-                {
-                    name: 'user_id',
-                    type: 'varchar',
-                    length: '255',
-                    isPrimary: false,
-                    isNullable: true,
                 },
             ],
         });

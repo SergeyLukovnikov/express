@@ -1,10 +1,10 @@
-import { Connection } from 'typeorm';
-import { Factory, Seed } from 'typeorm-seeding';
+import {Connection} from 'typeorm';
+import {Factory} from 'typeorm-seeding';
 import * as uuid from 'uuid';
 
-import { User } from '../../../src/api/models/User';
+import {User} from '../../api/models/User';
 
-export class CreateBruce implements Seed {
+export class CreateBruce {
 
     public async seed(factory: Factory, connection: Connection): Promise<User> {
         // const userFactory = factory<User, { role: string }>(User as any);

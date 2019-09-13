@@ -1,4 +1,4 @@
-import { configure, transports } from 'winston';
+import {configure, transports} from 'winston';
 
 export const configureLogger = () => {
     configure({

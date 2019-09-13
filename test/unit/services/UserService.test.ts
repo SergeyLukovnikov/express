@@ -1,9 +1,9 @@
-import { User } from '../../../src/api/models/User';
-import { UserService } from '../../../src/api/services/UserService';
-import { events } from '../../../src/api/subscribers/events';
-import { EventDispatcherMock } from '../lib/EventDispatcherMock';
-import { LogMock } from '../lib/LogMock';
-import { RepositoryMock } from '../lib/RepositoryMock';
+import {User} from '../../../src/api/models/User';
+import {UserService} from '../../../src/api/services/UserService';
+import {events} from '../../../src/api/subscribers/events';
+import {EventDispatcherMock} from '../lib/EventDispatcherMock';
+import {LogMock} from '../lib/LogMock';
+import {RepositoryMock} from '../lib/RepositoryMock';
 
 describe('UserService', () => {
 

@@ -1,11 +1,10 @@
-import { Factory, Seed } from 'typeorm-seeding';
-import { Connection } from 'typeorm/connection/Connection';
+import {Factory} from 'typeorm-seeding';
 
-import { User } from '../../../src/api/models/User';
+import {User} from '../../api/models/User';
 
-export class CreateUsers implements Seed {
+export class CreateUsers {
 
-    public async seed(factory: Factory, connection: Connection): Promise<any> {
+    public async seed(factory: Factory): Promise<any> {
         await factory(User)().seedMany(10);
     }
 

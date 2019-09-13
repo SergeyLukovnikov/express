@@ -1,8 +1,13 @@
-.vscode
 node_modules
 test
 .editorconfig
 .env.example
+.env.test
+.git
+.idea
+Dockerfile
 .gitignore
+.dockerignore
+yarn.lock
 .travis.yml
 appveyor.yml

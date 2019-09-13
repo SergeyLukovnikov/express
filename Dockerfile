@@ -1,16 +1,16 @@
 FROM node:10-alpine
 
 # Create work directory
-WORKDIR /usr/src/app
+WORKDIR /usr/app
 
 # Install Python and Yarn
-RUN apk add g++ make python && npm install yarn -g
+RUN apk add g++ make python
 
 # Copy app source to work directory
-COPY . /usr/src/app
+COPY . /usr/app
 
 # Install app dependencies
-RUN yarn install
+RUN yarn install --production && npm run build && rm -rf ./src
 
 # Build and run the app
-CMD npm start serve
+CMD npm start

@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, TableForeignKey } from 'typeorm';
+import {MigrationInterface, QueryRunner, TableForeignKey} from 'typeorm';
 
 export class AddUserRelationToPetTable1512663990063 implements MigrationInterface {
 

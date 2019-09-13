@@ -1,10 +1,10 @@
-import { Request } from 'express';
+import {Request} from 'express';
 import MockExpressRequest from 'mock-express-request';
-import { User } from 'src/api/models/User';
+import {User} from '../../../src/api/models/User';
 
-import { AuthService } from '../../../src/auth/AuthService';
-import { LogMock } from '../lib/LogMock';
-import { RepositoryMock } from '../lib/RepositoryMock';
+import {AuthService} from '../../../src/auth/AuthService';
+import {LogMock} from '../lib/LogMock';
+import {RepositoryMock} from '../lib/RepositoryMock';
 
 describe('AuthService', () => {
 

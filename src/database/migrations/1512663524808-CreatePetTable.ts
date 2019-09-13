@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import {MigrationInterface, QueryRunner, Table} from 'typeorm';
 
 export class CreatePetTable1512663524808 implements MigrationInterface {
 
