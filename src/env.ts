@@ -45,6 +45,11 @@ export const env = {
     json: toBool(getOsEnvOptional('LOG_JSON')),
     output: getOsEnv('LOG_OUTPUT'),
   },
+  auth: {
+    secretKey: getOsEnv('AUTH_SECRET_KEY'),
+    expireToken: getOsEnv('AUTH_EXPIRE_TOKEN'),
+    expireRefreshToken: getOsEnv('AUTH_EXPIRE_REFRESH_TOKEN'),
+  },
   db: {
     type: getOsEnv('TYPEORM_CONNECTION'),
     host: getOsEnvOptional('TYPEORM_HOST'),
@@ -53,7 +58,7 @@ export const env = {
     password: getOsEnvOptional('TYPEORM_PASSWORD'),
     database: getOsEnv('TYPEORM_DATABASE'),
     synchronize: toBool(getOsEnvOptional('TYPEORM_SYNCHRONIZE')),
-    logging: getOsEnv('TYPEORM_LOGGING'),
+    logging: toBool(getOsEnvOptional('TYPEORM_LOGGING')),
   },
   swagger: {
     enabled: toBool(getOsEnv('SWAGGER_ENABLED')),

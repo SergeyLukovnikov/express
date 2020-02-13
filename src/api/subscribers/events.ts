@@ -10,6 +10,9 @@ export const events = {
   word: {
     created: 'onWordCreate',
   },
+  wordCategory: {
+    created: 'onWordCategoryCreated',
+  },
   pet: {
     created: 'onPetCreate',
   },

@@ -27,6 +27,10 @@ export class UserService {
     return this.userRepository.findOne({ id });
   }
 
+  public async findByLogin(login: string): Promise<User | undefined> {
+    return this.userRepository.findOne({ email: login });
+  }
+
   public async create(user: User): Promise<User> {
     this.log.info('Create a new user => ', user.toString());
     user.id = uuid.v1();

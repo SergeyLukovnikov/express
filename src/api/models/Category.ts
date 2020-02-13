@@ -1,31 +1,28 @@
 import {IsNotEmpty} from 'class-validator';
 import {Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from 'typeorm';
-import {Category} from './Category';
+import {Word} from './Word';
 
 @Entity({
-  name: 'word',
+ name: 'category',
 })
-export class Word {
+export class Category {
 
   @PrimaryGeneratedColumn()
   public id: number;
 
   @IsNotEmpty()
-  @Column()
-  public value: string;
 
-  @IsNotEmpty()
   @Column()
-  public translation: string;
+  public name: string;
 
-  @ManyToMany(type => Category, category => category.id)
+  @ManyToMany(type => Word, word => word.id)
   @JoinTable({
     name: 'words_categories',
   })
-  public categories: Category[];
+  public words: Word[];
 
   public toString(): string {
-    return `${this.value} - ${this.translation}`;
+    return `${this.name}`;
   }
 
 }

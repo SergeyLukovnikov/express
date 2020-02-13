@@ -10,7 +10,9 @@ RUN apk add g++ make python
 COPY . /usr/app
 
 # Install app dependencies
-RUN yarn install --production && npm run build && rm -rf ./src
+RUN yarn install --production
+
+RUN npm run build && rm -rf ./src
 
 # Build and run the app
 CMD npm start
