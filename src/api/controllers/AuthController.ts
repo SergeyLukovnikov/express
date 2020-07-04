@@ -4,7 +4,7 @@ import * as jwtwebtoken from 'jsonwebtoken';
 import {compareSync} from 'bcrypt';
 import {UserService} from '../services/UserService';
 import {CredentialsError} from '../errors/CredanticalsError';
-// import {AuthService} from '../../auth/AuthService';
+import {v4 as uuid} from 'uuid';
 import {env} from '../../env';
 import {RefreshToken} from '../models/RefreshToken';
 import {TokenService} from '../services/TokenService';
@@ -26,7 +26,10 @@ export class AuthController {
       throw new CredentialsError();
     }
 
-    const refreshToken = new RefreshToken(user.id);
+    const refreshToken = new RefreshToken();
+    refreshToken.userId = user.id;
+    refreshToken.token = uuid();
+
     await this.tokenService.add(refreshToken);
 
     return Promise.resolve({

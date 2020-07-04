@@ -50,6 +50,9 @@ export const env = {
     expireToken: getOsEnv('AUTH_EXPIRE_TOKEN'),
     expireRefreshToken: getOsEnv('AUTH_EXPIRE_REFRESH_TOKEN'),
   },
+  data: {
+    listLimit: getOsEnv('LIST_LIMIT'),
+  },
   db: {
     type: getOsEnv('TYPEORM_CONNECTION'),
     host: getOsEnvOptional('TYPEORM_HOST'),

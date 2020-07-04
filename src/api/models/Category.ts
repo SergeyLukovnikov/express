@@ -21,6 +21,8 @@ export class Category {
   })
   public words: Word[];
 
+  public wordCount: number;
+
   public toString(): string {
     return `${this.name}`;
   }

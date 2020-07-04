@@ -4,7 +4,7 @@ import {WordService} from '../services/WordService';
 import {WordNotFoundError} from '../errors/WordNotFoundError';
 import {CategoryService} from '../services/CategoryService';
 import {WordAlreadyExistError} from '../errors/WordAlreadyExistError';
-import {DeleteResult} from 'typeorm';
+import {env} from '../../env';
 
 @JsonController('/words')
 export class WordController {
@@ -13,25 +13,30 @@ export class WordController {
               private categoryService: CategoryService) { }
 
   @Get()
-  public async getWords(@QueryParam('limit') limit: number,
-                        @QueryParam('offset') offset: number,
-                        @QueryParam('search') search: string): Promise<{totalCount: number; items: Word[]}> {
-
-    const items = this.wordService.getWords(limit, offset, search);
-    const totalCount = this.wordService.getCountWords(search);
-    return Promise.all([items, totalCount])
-      .then(([itemsRes, totalCountRes]) => ({items: itemsRes, totalCount: totalCountRes}));
+  public async getWords(@QueryParam('limit') limit: number = +env.data.listLimit,
+                        @QueryParam('offset') offset: number = 0,
+                        @QueryParam('search') search: string = '',
+                        @QueryParam('sort') sort: string = 'id',
+                        @QueryParam('direction') direction: string): Promise<{totalCount: number; items: Word[]}> {
+    return Promise.all([
+      this.wordService.getWords(limit, offset, search, sort, direction),
+      this.wordService.getCountWords(search),
+    ])
+    .then(([items, totalCount]) => ({items, totalCount}));
   }
 
   @Get('/category/:id')
   public getWordsByCategory(@Param('id') id: number,
-                            @QueryParam('limit') limit: number,
-                            @QueryParam('offset') offset: number,
-                            @QueryParam('search') search: string): Promise<{totalCount: number; items: Word[]}> {
-    const items = this.wordService.getWordsByCategory(id, limit, offset, search);
-    const totalCount = this.wordService.getCountWordsInCategory(id, search);
-    return Promise.all([items, totalCount])
-      .then(([itemsRes, totalCountRes]) => ({items: itemsRes, totalCount: totalCountRes}));
+                            @QueryParam('limit') limit: number = +env.data.listLimit,
+                            @QueryParam('offset') offset: number = 0,
+                            @QueryParam('search') search: string = '',
+                            @QueryParam('sort') sort: string = 'id',
+                            @QueryParam('direction') direction: string): Promise<{totalCount: number; items: Word[]}> {
+    return Promise.all([
+      this.wordService.getWordsByCategory(id, limit, offset, search, sort, direction),
+      this.wordService.getCountWordsInCategory(id, search),
+    ])
+    .then(([items, totalCount]) => ({items, totalCount}));
   }
 
   @Post('')
@@ -52,9 +57,9 @@ export class WordController {
     return this.wordService.updateWord(word);
   }
 
-  @Delete('/delete-words')
+  @Delete()
   @OnUndefined(WordNotFoundError)
-  public deleteWord(@QueryParam('ids') ids: number[]): Promise<DeleteResult> {
+  public deleteWords(@Body() ids: number[]): Promise<number[]> {
     return this.wordService.deleteWords(ids);
   }
 

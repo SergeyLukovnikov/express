@@ -5,20 +5,25 @@ import {Logger, LoggerInterface} from '../../decorators/Logger';
 import {Word} from '../models/Word';
 import {events} from '../subscribers/events';
 import {WordRepository} from '../repositories/WordRepository';
-import {Brackets, DeleteResult} from 'typeorm';
+import {Brackets} from 'typeorm';
 import {CategoryService} from './CategoryService';
+import {BaseService} from './BaseService';
+import {WordAlreadyExistError} from '../errors/WordAlreadyExistError';
 
 @Service()
-export class WordService {
+export class WordService extends BaseService {
 
   constructor(@OrmRepository() private wordRepository: WordRepository,
               @EventDispatcher() private eventDispatcher: EventDispatcherInterface,
               private categoryService: CategoryService,
-              @Logger(__filename) private log: LoggerInterface
-  ) { }
+              @Logger(__filename) private log: LoggerInterface) {
+    super();
+  }
 
-  public getWords(limit: number, offset: number, search: string): Promise<Word[]> {
+  public getWords(limit: number, offset: number, search: string, sort: string, direction: string): Promise<Word[]> {
     this.log.info('Get words');
+    const sortValue = `word.${this.getSortField(sort, ['id', 'value', 'translations'], 'id')}`;
+    const sortOrder = this.getSortOrder(direction, 'DESC');
 
     const select = this.wordRepository.createQueryBuilder('word')
       .select([
@@ -26,9 +31,9 @@ export class WordService {
         'word.value',
         'word.translation',
       ])
-      .limit(limit)
-      .offset(offset)
-      .orderBy('word.id', 'DESC')
+      .take(limit)
+      .skip(offset)
+      .orderBy(sortValue, sortOrder)
       .leftJoinAndSelect('word.categories', 'categories');
 
     if (search) {
@@ -65,15 +70,20 @@ export class WordService {
       .then(categories => {
         word.categories = categories;
         return this.wordRepository.save(word);
+      })
+      .catch(() => {
+        throw new WordAlreadyExistError();
       });
   }
 
-  public deleteWords(ids: number[]): Promise<DeleteResult> {
+  public async deleteWords(ids: number[]): Promise<number[]> {
     this.log.info('Delete words');
-    return this.wordRepository.delete(ids);
+    await this.wordRepository.delete(ids);
+
+    return Promise.resolve(ids);
   }
 
-  public getWordsByCategory(id: number, limit: number, offset: number, search: string): Promise<Word[]> {
+  public getWordsByCategory(id: number, limit: number, offset: number, search: string, sort: string, direction: string): Promise<Word[]> {
     this.log.info('Get words by category');
     const select = this.wordRepository.createQueryBuilder('word')
       .select([
@@ -91,10 +101,13 @@ export class WordService {
       }));
     }
 
+    const sortField = sort ? sort : 'id';
+    const order = direction === 'asc' ? 'ASC' : 'DESC';
+
     return select
-      .limit(limit)
-      .offset(offset)
-      .orderBy('word.id', 'DESC')
+      .take(limit)
+      .skip(offset)
+      .orderBy(`word.${sortField}`, order)
       .getMany();
   }
 
@@ -105,7 +118,7 @@ export class WordService {
         'word.id',
       ])
       .leftJoin('word.categories', 'category')
-      .where('category.id =:id', {id});
+      .where('category.id = :id', {id});
 
     if (search) {
       select.andWhere(new Brackets(qb => {
